@@ -33,9 +33,9 @@ public class EmployeeController {
         return employeeService.getAll();
     }
 
-    @GetMapping("/employee/{pageNo}/{pageSize}")
-    public List<EmployeeEntity> getpaginated(@PathVariable int pageNo, @PathVariable int pageSize) {
-        return iEmployeeService.findpaginated(pageNo, pageSize);
+    @GetMapping("/employee/{pageNo}/{pageSize}/{sortBy}")
+    public List<EmployeeEntity> getpaginated(@PathVariable int pageNo, @PathVariable int pageSize, @PathVariable String sortBy) {
+        return iEmployeeService.findpaginated(pageNo, pageSize, sortBy);
     }
 
     @GetMapping("/get/acceptingRecords/{pageNo}/{pageSize}")

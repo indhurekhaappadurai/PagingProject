@@ -9,12 +9,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EmployeeService implements IEmployeeService {
+
     @Autowired
     private EmployeeRepository repository;
 
@@ -38,22 +41,27 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<EmployeeEntity> findpaginated(int pageNo, int pageSize) {
-        Pageable page = PageRequest.of(pageNo, pageSize);
-         Page<EmployeeEntity> pagedResult = repository.findAll(page);
-        return pagedResult.toList();
+    public List<EmployeeEntity> findpaginated(Integer pageNo, Integer pageSize , String sortBy) {
+        Pageable page = PageRequest.of(pageNo, pageSize, Sort.by("employeeAge"));
+        Page<EmployeeEntity> pagedResult = repository.findAll(page);
+
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        }
+        else {
+            return new ArrayList<EmployeeEntity>();
+        }
+      //  return pagedResult.toList();
     }
 
     public List<Object[]> getByColumnName(int pageNo, int pageSize) {
         return employeeRecordsRepository.getByColumn(pageNo,pageSize);
 
-
     }
 
     public List<Object[]> findByColumnName(int pageNo, int pageSize) {
         return employeeRecordsRepository.findByColumn(pageNo,pageSize);
-
-
     }
-
 }
+

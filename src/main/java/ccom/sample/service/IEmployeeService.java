@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface IEmployeeService {
 
-    List<EmployeeEntity> findpaginated(int pageNo, int pageSize);
-
+    List<EmployeeEntity> findpaginated(Integer pageNo, Integer pageSize , String sortBy);
 }
